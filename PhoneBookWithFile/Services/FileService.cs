@@ -17,35 +17,65 @@ namespace PhoneBookWithFile.Services
             EnsureFileExists();
         }
 
-        public string AddNameAndPhone(string name)
+        public string AddContact(string name, string phoneNumber)
         {
-            File.AppendAllText(filePath, name);
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(phoneNumber))
+            {
+                loggingService.LogingError("Ism yoki tel raqam xato kiritildi. To'g'ri qiymatlar kiriting.");
+                return "";
+            }
 
-            return name;
+            string formattedContact = $"{name},{phoneNumber}";
+            File.AppendAllText(filePath, formattedContact + Environment.NewLine);
+
+            return formattedContact;
         }
 
-        public void ReadAndShowFile()
+        public void ReadAllContact()
         {
-            string fileCOntent = File.ReadAllText(filePath);
-            Console.WriteLine(fileCOntent);
+            if (File.Exists(filePath))
+            {
+                string[] allContent = File.ReadAllLines(filePath);
+
+                foreach (string line in allContent) 
+                {
+                    string[] lineArray = line.Split(",");
+                    if(lineArray.Length > 0)
+                    {
+                        loggingService.LoggingInformation($"Name {lineArray[0]}, and contact number: {lineArray[1]}");
+                    }
+                }
+
+             
+            }
+            else
+            {
+                loggingService.LogingError("File doesn't exist");
+            }
         }
 
 
-        public void UpdateFile(string name, string newValue)
-        {
-            string text = File.ReadAllText(filePath);
-            text = text.Replace(name, "new value");
-            File.WriteAllText("test.txt", newValue);
-        }
+ 
 
         public void DeleteFile()
         {
             File.Delete(filePath);
-            Console.WriteLine("File has been deleted");
+            loggingService.LogingError("File has been deleted");
         }
 
+        public void DeleteContactByName(string name)
+        {
+            loggingService.LoggingInformation("Which contact do you want to delete? Plsease enter the name:");
+            string userInput = Console.ReadLine();
+            int userName = int.Parse(userInput);
 
-        private static void EnsureFileExists()
+           
+
+
+
+        }
+
+            private static void EnsureFileExists()
         {
             var isFilePresent = File.Exists(filePath);
 
