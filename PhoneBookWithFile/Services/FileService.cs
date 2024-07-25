@@ -24,7 +24,6 @@ namespace PhoneBookWithFile.Services
                 loggingService.LogingError("Ism yoki tel raqam xato kiritildi. To'g'ri qiymatlar kiriting.");
                 return "";
             }
-
             string formattedContact = $"{name},{phoneNumber}";
             File.AppendAllText(filePath, formattedContact + Environment.NewLine);
 
@@ -37,16 +36,14 @@ namespace PhoneBookWithFile.Services
             {
                 string[] allContent = File.ReadAllLines(filePath);
 
-                foreach (string line in allContent) 
+                foreach (string line in allContent)
                 {
                     string[] lineArray = line.Split(",");
-                    if(lineArray.Length > 0)
+                    if (lineArray.Length > 0)
                     {
                         loggingService.LoggingInformation($"Name {lineArray[0]}, and contact number: {lineArray[1]}");
                     }
                 }
-
-             
             }
             else
             {
@@ -55,7 +52,7 @@ namespace PhoneBookWithFile.Services
         }
 
 
- 
+
 
         public void DeleteFile()
         {
@@ -68,14 +65,9 @@ namespace PhoneBookWithFile.Services
             loggingService.LoggingInformation("Which contact do you want to delete? Plsease enter the name:");
             string userInput = Console.ReadLine();
             int userName = int.Parse(userInput);
-
-           
-
-
-
         }
 
-            private static void EnsureFileExists()
+        private static void EnsureFileExists()
         {
             var isFilePresent = File.Exists(filePath);
 

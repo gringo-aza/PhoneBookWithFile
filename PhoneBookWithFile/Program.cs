@@ -42,7 +42,7 @@ namespace PhoneBookWithFile
                         string yesOrNo = Console.ReadLine();
                         if (yesOrNo == "yes" || yesOrNo == "y")
                         {
-                          /*  fileService.DeleteFile();*/
+                            fileService.DeleteFile();
                         }
                  
                         break;
@@ -74,7 +74,6 @@ namespace PhoneBookWithFile
             Console.WriteLine("3 Update contact");
             Console.WriteLine("4 Delete File");
             Console.WriteLine("5 Delete contact");
-
 
             return Console.ReadLine();
         }

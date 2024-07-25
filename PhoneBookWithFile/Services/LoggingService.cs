@@ -14,7 +14,6 @@ namespace PhoneBookWithFile.Services
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(message);
             Console.ResetColor();
-
         }
         public void LogingError(string message)
         {
